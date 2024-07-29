@@ -50,19 +50,21 @@ func (l *Lexer) NextToken() token.Token {
 	// Check for character
 	if tk, ok := token.Symbols[string(l.ch)]; ok {
 
-		// if l.ch == '=' && l.peekChar() == '=' {
-		// 	l.readChar()
-		// 	tok.Type = token.EQ
-		// 	tok.Literal = "=="
-		// 	return tok
-		// }
+		if l.ch == '=' && l.peekChar() == '=' {
+			l.readChar()
+			l.readChar()
+			tok.Type = token.EQ
+			tok.Literal = "=="
+			return tok
+		}
 
-		// if l.ch == '!' && l.peekChar() == '=' {
-		// 	l.readChar()
-		// 	tok.Type = token.NOT_EQ
-		// 	tok.Literal = "!="
-		// 	return tok
-		// }
+		if l.ch == '!' && l.peekChar() == '=' {
+			l.readChar()
+			l.readChar()
+			tok.Type = token.NOT_EQ
+			tok.Literal = "!="
+			return tok
+		}
 
 		tok = newToken(tk, l.ch)
 		l.readChar()
